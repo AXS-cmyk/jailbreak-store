@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAILBREAK STORE — Premium</title>
+
+    <style>
+        :root {
+            --bg: #080808;
+            --panel: #111111;
+            --panel2: #151515;
+            --border: rgba(255,255,255,.08);
+            --red: #ff3347;
+            --red2: #ff5364;
+            --text: #ffffff;
+            --muted: #999999;
+            --green: #35d07f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top right, rgba(255, 40, 60, .08), transparent 35%),
+                radial-gradient(circle at bottom left, rgba(255, 40, 60, .05), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 68px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(8,8,8,.88);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--red);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255,51,71,.7);
+        }
+
+        .store-online {
+            color: var(--green);
+            font-size: 10px;
+            margin-left: 5px;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-login-btn {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.05);
+            color: white;
+            padding: 9px 13px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .nav-login-btn:hover {
+            background: rgba(255,255,255,.1);
+            border-color: rgba(255,255,255,.15);
+        }
+
+        .user-name {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            border: 1px solid rgba(255,51,71,.25);
+            background: rgba(255,51,71,.06);
+            color: #ff6575;
+            padding: 8px 11px;
+            border-radius: 9px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .pending-nav-btn {
+            border: 1px solid rgba(255,193,7,.25);
+            background: rgba(255,193,7,.06);
+            color: #ffc107;
+            padding: 9px 11px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            max-width: 1150px;
+            margin: auto;
+            padding: 85px 20px 55px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,51,71,.25);
+            background: rgba(255,51,71,.06);
+            color: var(--red2);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(35px, 7vw, 75px);
+            line-height: .95;
+            letter-spacing: -3px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--red);
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* =========================
+           PRODUCTS
+        ========================= */
+
+        .products-section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 20px 20px 70px;
+        }
+
+        .section-title {
+            margin-bottom: 25px;
+        }
+
+        .section-title h2 {
+            font-size: 23px;
+            margin-bottom: 6px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, #121212, #0d0d0d);
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            padding: 18px;
+            transition: .25s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,51,71,.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        }
+
+        .product-number {
+            color: var(--red);
+            font-size: 10px;
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .product-card h3 {
+            font-size: 15px;
+            margin-bottom: 9px;
+        }
+
+        .product-card p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+            min-height: 52px;
+        }
+
+        .price {
+            font-size: 21px;
+            font-weight: 900;
+            margin: 18px 0;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 11px;
+            background: var(--red);
+            color: white;
+            font-weight: 900;
+            font-size: 11px;
+            transition: .2s;
+        }
+
+        .buy-btn:hover {
+            background: var(--red2);
+            transform: translateY(-1px);
+        }
+
+        /* =========================
+           INFO
+        ========================= */
+
+        .info-grid {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 20px 70px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .info-box {
+            border: 1px solid var(--border);
+            background: var(--panel);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .info-box h3 {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            background: rgba(0,0,0,.78);
+            backdrop-filter: blur(8px);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            width: min(520px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: linear-gradient(145deg, #141414, #0d0d0d);
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            padding: 22px;
+            box-shadow: 0 25px 80px rgba(0,0,0,.6);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 18px;
+        }
+
+        .close {
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.04);
+            color: white;
+            border-radius: 9px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #aaa;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #0b0b0b;
+            color: white;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .form-group input:focus,
+        .input-field:focus {
+            border-color: rgba(255,51,71,.5);
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 11px;
+            background: var(--red);
+            color: white;
+            font-weight: 900;
+            font-size: 11px;
+            cursor: pointer;
+            margin-top: 7px;
+        }
+
+        .manual-confirm-btn {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: rgba(255,255,255,.04);
+            color: white;
+            font-weight: 700;
+            font-size: 10px;
+            cursor: pointer;
+            margin-top: 9px;
+        }
+
+        .manual-confirm-btn:hover {
+            background: rgba(255,255,255,.07);
+        }
+
+        /* =========================
+           BUY MODAL
+        ========================= */
+
+        .selected-product {
+            padding: 14px;
+            border: 1px solid rgba(255,51,71,.2);
+            background: rgba(255,51,71,.05);
+            border-radius: 12px;
+            margin-bottom: 18px;
+        }
+
+        .selected-product .name {
+            font-weight: 900;
+            font-size: 14px;
+        }
+
+        .selected-product .selected-price {
+            color: var(--red2);
+            font-weight: 800;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .payment-title {
+            color: #aaa;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 9px;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .payment-option {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.03);
+            color: white;
+            padding: 13px;
+            border-radius: 11px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .payment-option.active {
+            border-color: var(--red);
+            background: rgba(255,51,71,.08);
+        }
+
+        .qr-box {
+            display: none;
+            margin: 15px 0;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: #090909;
+        }
+
+        .qr-box.show {
+            display: block;
+        }
+
+        .qr-box img {
+            width: 190px;
+            max-width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .qr-box p {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .upload-box {
+            border: 1px dashed rgba(255,255,255,.18);
+            background: rgba(255,255,255,.025);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        .upload-box label {
+            display: block;
+            color: #aaa;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .upload-box input[type="file"] {
+            width: 100%;
+            color: #aaa;
+            font-size: 10px;
+        }
+
+        .manual-info {
+            margin-top: 13px;
+            padding: 13px;
+            border-radius: 11px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid var(--border);
+            color: #aaa;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           WAITING
+        ========================= */
+
+        .warning {
+            padding: 14px;
+            border-radius: 11px;
+            border: 1px solid rgba(255,193,7,.2);
+            background: rgba(255,193,7,.06);
+            color: #ffc107;
+            font-size: 11px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* =========================
+           PENDING
+        ========================= */
+
+        .pending-order {
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 14px;
+            background: rgba(255,255,255,.035);
+            border: 1px solid var(--border);
+        }
+
+        .pending-product {
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .pending-price {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+            margin-bottom: 14px;
+        }
+
+        .pending-status {
+            font-size: 10px;
+            color: #ffbd35;
+            margin-bottom: 12px;
+        }
+
+        .pending-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .cancel-order-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 11px;
+            border: 1px solid rgba(255,51,71,.25);
+            background: rgba(255,51,71,.07);
+            color: #ff6878;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .empty-pending {
+            text-align: center;
+            color: var(--muted);
+            padding: 25px;
+            font-size: 12px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 30px 20px;
+            text-align: center;
+            color: #666;
+            font-size: 10px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 0 16px;
+            }
+
+            .store-online {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .nav-right {
+                gap: 5px;
+            }
+
+            .user-name {
+                max-width: 90px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-dot"></span>
+            JAILBREAK STORE
+            <span class="store-online">● ONLINE</span>
+        </div>
+
+        <div class="nav-right">
+
+            <!-- Akan diisi otomatis oleh script.js -->
+            <div id="pendingArea"></div>
+
+            <div id="authArea">
+                <button class="nav-login-btn" onclick="openLogin()">
+                    LOGIN
+                </button>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-badge">
+            PREMIUM DIGITAL STORE
+        </div>
+
+        <h1>
+            JAILBREAK<br>
+            <span>STORE</span>
+        </h1>
+
+        <p>
+            Tempat pembelian produk digital premium.
+            Pilih produk yang kamu inginkan, lakukan pembayaran,
+            lalu tunggu konfirmasi admin.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         PRODUCTS
+    ========================= -->
+
+    <section class="products-section">
+
+        <div class="section-title">
+            <h2>PRODUCTS</h2>
+            <p>Pilih produk yang ingin kamu beli.</p>
+        </div>
+
+        <div class="products-grid">
+
+            <!-- PRODUCT 1 -->
+            <div class="product-card">
+
+                <div class="product-number">
+                    PRODUCT 01
+                </div>
+
+                <h3>
+                    JAILBREAK PRO 1
+                </h3>
+
+                <p>
+                    Paket digital premium dengan
+                    akses dan fitur sesuai produk.
+                </p>
+
+                <div class="price">
+                    Rp 150.000
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="openBuyModal('JAILBREAK PRO 1', 150000)">
+                    BELI SEKARANG
+                </button>
+
+            </div>
+
+
+            <!-- PRODUCT 2 -->
+            <div class="product-card">
+
+                <div class="product-number">
+                    PRODUCT 02
+                </div>
+
+                <h3>
+                    JAILBREAK PRO 2
+                </h3>
+
+                <p>
+                    Paket digital premium dengan
+                    fitur dan akses lebih lengkap.
+                </p>
+
+                <div class="price">
+                    Rp 250.000
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="openBuyModal('JAILBREAK PRO 2', 250000)">
+                    BELI SEKARANG
+                </button>
+
+            </div>
+
+
+            <!-- PRODUCT 3 -->
+            <div class="product-card">
+
+                <div class="product-number">
+                    PRODUCT 03
+                </div>
+
+                <h3>
+                    JAILBREAK PRO 3
+                </h3>
+
+                <p>
+                    Paket premium dengan fitur
+                    tambahan dan akses lebih luas.
+                </p>
+
+                <div class="price">
+                    Rp 350.000
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="openBuyModal('JAILBREAK PRO 3', 350000)">
+                    BELI SEKARANG
+                </button>
+
+            </div>
+
+
+            <!-- PRODUCT 4 -->
+            <div class="product-card">
+
+                <div class="product-number">
+                    PRODUCT 04
+                </div>
+
+                <h3>
+                    JAILBREAK PRO 4
+                </h3>
+
+                <p>
+                    Paket premium untuk kebutuhan
+                    digital dengan fitur tambahan.
+                </p>
+
+                <div class="price">
+                    Rp 450.000
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="openBuyModal('JAILBREAK PRO 4', 450000)">
+                    BELI SEKARANG
+                </button>
+
+            </div>
+
+
+            <!-- PRODUCT 5 -->
+            <div class="product-card">
+
+                <div class="product-number">
+                    PRODUCT 05
+                </div>
+
+                <h3>
+                    JAILBREAK PRO 5
+                </h3>
+
+                <p>
+                    Paket premium tertinggi dengan
+                    fitur dan akses paling lengkap.
+                </p>
+
+                <div class="price">
+                    Rp 550.000
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="openBuyModal('JAILBREAK PRO 5', 550000)">
+                    BELI SEKARANG
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         INFO
+    ========================= -->
+
+    <section class="info-grid">
+
+        <div class="info-box">
+            <h3>⚡ PROSES</h3>
+            <p>
+                Pilih produk, lakukan pembayaran,
+                upload bukti transfer, kemudian
+                tunggu konfirmasi admin.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🔐 ACCOUNT</h3>
+            <p>
+                Kamu wajib login untuk melakukan
+                pembelian dan melihat pesanan
+                yang sedang diproses.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>💬 SUPPORT</h3>
+            <p>
+                Jika terdapat masalah pada pembayaran,
+                kamu dapat menghubungi admin melalui
+                Telegram.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         LOGIN MODAL
+    ========================= -->
+
+    <div id="loginModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>
+                    LOGIN
+                </h2>
+
+                <button
+                    class="close"
+                    onclick="closeAuthModals()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    USERNAME
+                </label>
+
+                <input
+                    id="loginUsername"
+                    type="text"
+                    placeholder="Masukkan username"
+                    autocomplete="username">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    PASSWORD
+                </label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Masukkan password"
+                    autocomplete="current-password">
+
+            </div>
+
+
+            <button
+                class="confirm-btn"
+                onclick="loginUser()">
+                LOGIN
+            </button>
+
+
+            <button
+                class="manual-confirm-btn"
+                onclick="openRegister()">
+                belum daftar? DAFTAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         REGISTER MODAL
+    ========================= -->
+
+    <div id="registerModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>
+                    DAFTAR
+                </h2>
+
+                <button
+                    class="close"
+                    onclick="closeAuthModals()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    USERNAME
+                </label>
+
+                <input
+                    id="registerUsername"
+                    type="text"
+                    placeholder="Masukkan username"
+                    autocomplete="username">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    PASSWORD
+                </label>
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Masukkan password"
+                    autocomplete="new-password">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    KONFIRMASI PASSWORD
+                </label>
+
+                <input
+                    id="registerConfirmPassword"
+                    type="password"
+                    placeholder="Ulangi password"
+                    autocomplete="new-password">
+
+            </div>
+
+
+            <button
+                class="confirm-btn"
+                onclick="registerUser()">
+                DAFTAR
+            </button>
+
+
+            <button
+                class="manual-confirm-btn"
+                onclick="openLogin()">
+                Sudah punya akun? LOGIN
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         BUY MODAL
+    ========================= -->
+
+    <div id="buyModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>
+                    PEMBELIAN
+                </h2>
+
+                <button
+                    class="close"
+                    onclick="closeBuyModal()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- PRODUCT INFO -->
+
+            <div class="selected-product">
+
+                <div
+                    class="name"
+                    id="selectedProduct">
+                    PRODUCT
+                </div>
+
+                <div
+                    class="selected-price"
+                    id="selectedPrice">
+                    Rp 0
+                </div>
+
+            </div>
+
+
+            <!-- WHATSAPP -->
+
+            <div class="form-group">
+
+                <label>
+                    NOMOR WHATSAPP
+                </label>
+
+                <input
+                    id="whatsappNumber"
+                    class="input-field"
+                    type="tel"
+                    placeholder="Contoh: 081356062882">
+
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="payment-title">
+                PILIH METODE PEMBAYARAN
+            </div>
+
+
+            <div class="payment-methods">
+
+                <button
+                    type="button"
+                    class="payment-option"
+                    id="danaBtn"
+                    onclick="selectPayment('DANA')">
+                    DANA
+                </button>
+
+
+                <button
+                    type="button"
+                    class="payment-option"
+                    id="shopeepayBtn"
+                    onclick="selectPayment('SHOPEEPAY')">
+                    SHOPEEPAY
+                </button>
+
+            </div>
+
+
+            <!-- QR DANA -->
+
+            <div
+                id="danaQR"
+                class="qr-box">
+
+                <!-- GANTI SRC DENGAN QR DANA ASLI KAMU -->
+
+                <img
+                    src="https://via.placeholder.com/300x300.png?text=QR+DANA"
+                    alt="QR DANA">
+
+                <p>
+                    Scan QR DANA untuk melakukan pembayaran.
+                </p>
+
+            </div>
+
+
+            <!-- QR SHOPEEPAY -->
+
+            <div
+                id="shopeepayQR"
+                class="qr-box">
+
+                <!-- GANTI SRC DENGAN QR SHOPEEPAY ASLI KAMU -->
+
+                <img
+                    src="https://via.placeholder.com/300x300.png?text=QR+SHOPEEPAY"
+                    alt="QR ShopeePay">
+
+                <p>
+                    Scan QR ShopeePay untuk melakukan pembayaran.
+                </p>
+
+            </div>
+
+
+            <!-- MANUAL PAYMENT INFO -->
+
+            <div class="manual-info">
+
+                KIRIM BUKTI DISINI ATAU KE NO INI
+                <strong>+62 81356062882</strong>
+
+                <br><br>
+
+                Pastikan nominal pembayaran sesuai
+                dengan harga produk.
+
+            </div>
+
+
+            <!-- UPLOAD -->
+
+            <div class="upload-box">
+
+                <label>
+                    UPLOAD BUKTI TF KAMU
+                </label>
+
+                <input
+                    type="file"
+                    id="paymentProof"
+                    accept="image/jpeg,image/png,image/webp"
+                    onchange="handleProofSelected()">
+
+            </div>
+
+
+            <!-- MANUAL CONFIRM -->
+
+            <button
+                class="manual-confirm-btn"
+                id="manualConfirmBtn"
+                onclick="confirmSentToNumber()">
+
+                SAYA SUDAH KIRIM BUKTI PEMBAYARAN KE NO DI ATAS
+
+            </button>
+
+
+            <!-- SEND PROOF -->
+
+            <button
+                class="confirm-btn"
+                id="sendProofBtn"
+                onclick="currentOrderId ? sendExistingProof() : sendPaymentProof()"
+                style="display:none;">
+
+                KIRIM BUKTI TF
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         WAITING MODAL
+    ========================= -->
+
+    <div id="waitingModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>
+                    Pesanan Diproses
+                </h2>
+
+            </div>
+
+
+            <div class="warning">
+
+                ⏳ Mohon tunggu admin konfirmasi
+                pesanan anda.
+
+            </div>
+
+
+            <button
+                class="confirm-btn"
+                onclick="closeWaiting()">
+
+                OKE
+
+            </button>
+
+
+            <button
+                class="manual-confirm-btn"
+                onclick="openTelegram()">
+
+                PINDAH KE TELEGRAM
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PENDING MODAL
+    ========================= -->
+
+    <div id="pendingModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>
+                    🔄 Pesanan Belum Dibayar
+                </h2>
+
+                <button
+                    class="close"
+                    onclick="closePending()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="warning">
+
+                PRODUK YANG BELUM ANDA BAYAR
+
+            </div>
+
+
+            <!-- Diisi otomatis script.js -->
+
+            <div id="pendingList"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        JAILBREAK STORE © 2026
+        <br><br>
+        Premium Digital Store
+
+    </footer>
+
+
+    <!-- =========================
+         SCRIPT
+    ========================= -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
