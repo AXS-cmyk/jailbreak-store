@@ -332,7 +332,7 @@ function updateNavbar() {
 
 /* ================= BUY ================= */
 
-function openModal(
+function openBuyModal(
     product,
     price
 ) {
